@@ -89,9 +89,9 @@ export function iterateTimes(start, end, unit, timeSteps, callback) {
 // this can be manipulated to make the breakpoints change more/less
 // i.e. on zoom how often do we switch to the next unit of time
 // i think this is the distance between cell lines
-export const minCellWidth = 17
+export const MIN_CELL_WIDTH = 17
 
-export function getMinUnit(zoom, width, timeSteps) {
+export function getMinUnit(zoom, width, timeSteps, minCellWidth = MIN_CELL_WIDTH) {
   // for supporting weeks, its important to remember that each of these
   // units has a natural progression to the other. i.e. a year is 12 months
   // a month is 24 days, a day is 24 hours.
@@ -402,7 +402,7 @@ export function stackAll(itemsDimensions, groupOrders, lineHeight, stackItems) {
       groupHeights.push(Math.max(groupHeight, lineHeight))
     }
   }
-  
+
   return {
     height: sum(groupHeights),
     groupHeights,
@@ -411,11 +411,11 @@ export function stackAll(itemsDimensions, groupOrders, lineHeight, stackItems) {
 }
 
 /**
- * 
- * @param {*} itemsDimensions 
- * @param {*} isGroupStacked 
- * @param {*} lineHeight 
- * @param {*} groupTop 
+ *
+ * @param {*} itemsDimensions
+ * @param {*} isGroupStacked
+ * @param {*} lineHeight
+ * @param {*} groupTop
  */
 export function stackGroup(itemsDimensions, isGroupStacked, lineHeight, groupTop) {
   var groupHeight = 0

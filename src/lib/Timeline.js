@@ -156,6 +156,7 @@ export default class ReactCalendarTimeline extends Component {
     }),
 
     verticalLineClassNamesForTime: PropTypes.func,
+    minCellWidth: PropTypes.number,
 
     children: PropTypes.node
   }
@@ -411,7 +412,7 @@ export default class ReactCalendarTimeline extends Component {
         )
       )
     }
-    
+
     return derivedState
   }
 
@@ -871,13 +872,13 @@ export default class ReactCalendarTimeline extends Component {
 
   /**
    * check if child of type TimelineHeader
-   * refer to for explanation https://github.com/gaearon/react-hot-loader#checking-element-types 
+   * refer to for explanation https://github.com/gaearon/react-hot-loader#checking-element-types
    */
   isTimelineHeader = (child) => {
     if(child.type === undefined) return false
     return child.type.secretKey ===TimelineHeaders.secretKey
   }
-  
+
   childrenWithProps(
     canvasTimeStart,
     canvasTimeEnd,
@@ -974,7 +975,8 @@ export default class ReactCalendarTimeline extends Component {
       sidebarWidth,
       rightSidebarWidth,
       timeSteps,
-      traditionalZoom
+      traditionalZoom,
+      minCellWidth
     } = this.props
     const {
       draggingItem,
@@ -989,7 +991,7 @@ export default class ReactCalendarTimeline extends Component {
 
     const zoom = visibleTimeEnd - visibleTimeStart
     const canvasWidth = getCanvasWidth(width)
-    const minUnit = getMinUnit(zoom, width, timeSteps)
+    const minUnit = getMinUnit(zoom, width, timeSteps, minCellWidth)
 
     const isInteractingWithItem = !!draggingItem || !!resizingItem
 
